@@ -1,17 +1,17 @@
-"""
-arr = [1,2,3]
-arr.append(4)
-arr.append(5)
-arr.append(6)
-arr.pop()
+
+# arr = [1,2,3]
+# arr.append(4)
+# arr.append(5)
+# arr.append(6)
+# arr.pop()
 
 
-print(arr[-1:5]) #here the slicing starts at last element and 5 is out of
-                 #bound hence prints last element
+# print(arr[0:2]) #here the slicing starts at last element and 5 is out of
+#                  #bound hence prints last element
 
-print(len(arr))
+# print(len(arr))
 
-"""
+
 
 """"
 
@@ -69,6 +69,8 @@ for i,x in enumerate(doubled_numbers):
     print(x, end="")
 
 """
+
+
 
 
 
