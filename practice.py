@@ -380,52 +380,114 @@ grid2 = [
 """
 LeetCode 994 is Rotting Oranges
 """
-grid = [
-    [2, 1, 1, 2],
-    [1, 1, 0, 1],
-    [0, 1, 1, 1]
-]
-from collections import deque
-def rottingOranges(grid):
+# grid = [
+#     [2, 1, 1, 2],
+#     [1, 1, 0, 1],
+#     [0, 1, 1, 1]
+# ]
+# from collections import deque
+# def rottingOranges(grid):
 
-    fresh = 0
-    directions = [(-1,0), (1,0), (0,-1),(0,1)]
-    rows, cols = len(grid), len(grid[0])
-    queue = deque()
-    minutes = 0
+#     fresh = 0
+#     directions = [(-1,0), (1,0), (0,-1),(0,1)]
+#     rows, cols = len(grid), len(grid[0])
+#     queue = deque()
+#     minutes = 0
 
 
-    for r in range(rows):
-        for c in range(cols):
-            if grid[r][c] == 2:
-                queue.append((r,c))
-            if grid[r][c] == 1:
-                fresh+=1
-    # print(fresh)
+#     for r in range(rows):
+#         for c in range(cols):
+#             if grid[r][c] == 2:
+#                 queue.append((r,c))
+#             if grid[r][c] == 1:
+#                 fresh+=1
+#     # print(fresh)
 
-    while queue and fresh > 0:
-        # print(queue)
-        for _ in range(len(queue)):
-            # print(fresh)
-            row, col = queue.popleft()
-            for dr, dc in directions:
-                new_row, new_col = row + dr, col +dc
-                if(0 <= new_row < rows and 
-                   0 <= new_col < cols and
-                   grid[new_row][new_col] == 1):
-                    grid[new_row][new_col] = 2
+#     while queue and fresh > 0:
+#         # print(queue)
+#         for _ in range(len(queue)):
+#             # print(fresh)
+#             row, col = queue.popleft()
+#             for dr, dc in directions:
+#                 new_row, new_col = row + dr, col +dc
+#                 if(0 <= new_row < rows and 
+#                    0 <= new_col < cols and
+#                    grid[new_row][new_col] == 1):
+#                     grid[new_row][new_col] = 2
                     
-                    queue.append((new_row,new_col))
-                    # print(queue)
-                    fresh-=1
-        minutes +=1
+#                     queue.append((new_row,new_col))
+#                     # print(queue)
+#                     fresh-=1
+#         minutes +=1
 
-    return minutes if fresh == 0 else -1
+#     return minutes if fresh == 0 else -1
 
-print(rottingOranges(grid))
+# print(rottingOranges(grid))
+
+"""
+
+merge intervals
+
+"""
+
+def merge(intervals):
+    intervals.sort(key=lambda x:x[0])
+
+    result=[intervals[0]]
+
+    for current in intervals[1:]:
+        last = result[-1]
+        if current[0] <= last[1]:
+            last[1] = max(last[1], current[1])
+        else:
+            result.append(current)
+
+    return result
+
+def meeting(intervals):
+    intervals.sort(key=lambda x:x[0])
+    last = intervals[0]
+
+    for current in intervals[1:]:
+        if current[0] < last[1]:
+            return False
+        last = current
+        
 
 
 
+    return True
+
+
+
+"""
+Minimum number of rooms required
+
+"""
+
+def minRooms(intervals):
+    starts = sorted(x[0] for x in intervals)
+    ends = sorted(x[1] for x in intervals)
+
+    rooms =0
+    max_rooms = 0
+
+    s = e = 0
+
+    while s < len(starts):
+        if starts[s] < ends[e]:
+            rooms+=1
+            s+=1
+        else:
+            rooms-=1
+            e+=1
+        max_rooms = max(rooms,max_rooms)
+
+    return max_rooms
+
+intervals = [[1,4],[4,7],[10,19],[18,20]]
+
+print(minRooms(intervals))
 
 
 
