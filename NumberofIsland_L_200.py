@@ -47,8 +47,8 @@ def countIslands(grid):
     for r in range(rows):
         for c in range(cols):
             if grid[r][c] == "1" and (r,c) not in visited:
-             bfs(r,c)
-             island_count +=1
+              bfs(r,c)
+              island_count +=1
                 
                 
 

@@ -22,13 +22,14 @@ def twoSum(nums, target):
         sum = nums[left] + nums[right]
 
         if sum == target:
-            return [left +1 ,right +1] # to return +1 indices values
+            return [left  ,right] # to return +1 indices values
         elif sum < target:
             left +=1
         else:
             right-=1
 
     return []
+
 
 
 
@@ -48,8 +49,7 @@ def c_twoSum(nums,target):
 
     return result
 
-numbers = [0,3,3,3,3,6,4,5]
-target = 9
+
 sortedArray = [0,1,2,3,4,5,6]
 
 
@@ -85,8 +85,10 @@ def threeSum(nums, target):
 
     return result
 
+numbers = [0,3,3,3,3,6,4,5]
+target = 9
+print(twoSum(numbers, target))
 
-print(threeSum(numbers, target))
 
 
 """

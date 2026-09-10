@@ -1,5 +1,6 @@
 """
 Subarray Sum equal k
+
 """
 
 def subArraySumBrute(nums, k):
