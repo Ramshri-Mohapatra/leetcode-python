@@ -54,12 +54,33 @@ def countIslands(grid):
 
     return island_count
 
+
+def dfsIslands(grid):
+    rows, cols = len(grid), len(grid[0])
+    visited = set()
+    count=0
+
+    def dfs(r,c):
+        if (r<0 or r >= rows or c<0 or c>=cols or (r,c) in visited or grid[r][c] == "0"):
+            return
+        visited.add((r,c))
+        dfs(r+1,0)
+        dfs(r-1,0)
+        dfs(r, c+1)
+        dfs(r, c-1)
+    for r in range(rows):
+        for c in range(cols):
+            if (r,c) not in visited and grid[r][c] == "1":
+                dfs(r,c)
+                count+=1
+    return count
+
 grid = [
-  ["1","1","0","0","0"],
+  ["1","1","0","0","1"],
   ["1","1","0","0","0"],
   ["0","0","1","0","0"],
   ["0","0","0","1","1"]
 ]
 
-print(countIslands(grid))
+print(dfsIslands(grid))
 

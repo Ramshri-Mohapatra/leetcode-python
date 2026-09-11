@@ -430,68 +430,143 @@ merge intervals
 
 """
 
-def merge(intervals):
-    intervals.sort(key=lambda x:x[0])
+# def merge(intervals):
+#     intervals.sort(key=lambda x:x[0])
 
-    result=[intervals[0]]
+#     result=[intervals[0]]
 
-    for current in intervals[1:]:
-        last = result[-1]
-        if current[0] <= last[1]:
-            last[1] = max(last[1], current[1])
-        else:
-            result.append(current)
+#     for current in intervals[1:]:
+#         last = result[-1]
+#         if current[0] <= last[1]:
+#             last[1] = max(last[1], current[1])
+#         else:
+#             result.append(current)
 
-    return result
+#     return result
 
-def meeting(intervals):
-    intervals.sort(key=lambda x:x[0])
-    last = intervals[0]
+# def meeting(intervals):
+#     intervals.sort(key=lambda x:x[0])
+#     last = intervals[0]
 
-    for current in intervals[1:]:
-        if current[0] < last[1]:
-            return False
-        last = current
+#     for current in intervals[1:]:
+#         if current[0] < last[1]:
+#             return False
+#         last = current
         
 
 
 
-    return True
+#     return True
 
+
+
+# """
+# Minimum number of rooms required
+
+# """
+
+# def minRooms(intervals):
+#     starts = sorted(x[0] for x in intervals)
+#     ends = sorted(x[1] for x in intervals)
+
+#     rooms =0
+#     max_rooms = 0
+
+#     s = e = 0
+
+#     while s < len(starts):
+#         if starts[s] < ends[e]:
+#             rooms+=1
+#             s+=1
+#         else:
+#             rooms-=1
+#             e+=1
+#         max_rooms = max(rooms,max_rooms)
+
+#     return max_rooms
+
+# intervals = [[1,4],[4,7],[10,19],[18,20]]
+
+# print(minRooms(intervals))
+
+"""
+climb stairs
+
+"""
+
+# ways(2) = ways(1) + ways (0)
+
+
+# def climbStairs(n):
+#     if n <=1:
+#         return 1
+#     if n == 2:
+#         return 2
+#     prev3, prev2, prev1 = 1,1,2
+    
+#     for i in range(3, n+1):
+#         current = prev3 + prev2 +  prev1
+#         prev3 = prev2
+#         prev2 = prev1
+#         prev1 = current
+
+        
+#     return prev1
+
+# print(climbStairs(5))
 
 
 """
-Minimum number of rooms required
+rob a house
 
 """
 
-def minRooms(intervals):
-    starts = sorted(x[0] for x in intervals)
-    ends = sorted(x[1] for x in intervals)
+# def robHouse(nums):
+#     prev2, prev1 = 0, 0 # house i-2 and house 1-1
 
-    rooms =0
-    max_rooms = 0
+#     for num in nums:
+#         current = max(prev1, prev2+num)
+#         prev2 = prev1
+#         prev1 = current
+#     return prev1
+# nums = [2,7,9,3,1]
 
-    s = e = 0
+# print(robHouse(nums))
 
-    while s < len(starts):
-        if starts[s] < ends[e]:
-            rooms+=1
-            s+=1
-        else:
-            rooms-=1
-            e+=1
-        max_rooms = max(rooms,max_rooms)
+"""
+You're given coin denominations coins and a target amount. Return the minimum number of coins needed to make up that amount. If it's impossible, return -1.
 
-    return max_rooms
+Example:
+coins = [1, 2, 5], amount = 11
+Output: 3   (5 + 5 + 1 = 11, using 3 coins)
 
-intervals = [[1,4],[4,7],[10,19],[18,20]]
+Trigger - Minimum/maximum number of items to reach a specific total
 
-print(minRooms(intervals))
+pattern = Build a full dp[] array from 0 to the target, initialized to infinity (unreachable) except 
+the base case dp[0]=0. For each amount, try every available option, and take the min() of "solve the 
+smaller leftover amount, then add 1 for this choice."
+
+"""
+
+def coinChange(coins, amount):
+    dp = [float('inf')]*(amount+1)
+
+    dp[0] = 0
+
+    for a in range(1, amount+1):
+        for coin in coins:
+            if coin <= a:
+                dp[a] = min(dp[a], (dp[a -coin] +1))
+
+    return dp[amount] if dp[amount] != float('inf') else -1
+
+    
+coins = [1, 2, 5]
+amount = 11
+print(coinChange(coins, amount))
 
 
 
-
-
+    
 
 
