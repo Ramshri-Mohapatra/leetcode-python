@@ -1,6 +1,11 @@
 """
 Leetcode 139 WordBreak
 
+Trigger - Is it possible to seperate a string into substring in the dictionary
+
+pattern = build the dp for prefix and check remaining substring is a valid dictionary word
+then whole string is valid
+
 """
 
 def wordBreak(s, wordDict):

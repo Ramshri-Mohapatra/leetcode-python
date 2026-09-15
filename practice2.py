@@ -109,7 +109,7 @@ def maxDepth(node):
     right_depth = maxDepth(node.right)
     return 1 + max(left_depth,right_depth)
 
-print(maxDepth(root))
+# print(maxDepth(root))
 
 """
 Number of Islands(LeetCode 200, Medium)
@@ -131,69 +131,44 @@ Output: 3
 
 """
 from collections import deque
-def countIslands(grid):
-
-    if not grid:
-        return 0
+def noOfIslands(grid):
 
     rows, cols = len(grid), len(grid[0])
     visited = set()
     directions = [(-1,0), (1,0), (0,-1), (0,1)]
-    island_count = 0
+    islands = 0
 
     def bfs(start_row, start_col):
         queue = deque([(start_row, start_col)])
         visited.add((start_row,start_col))
-        
-
         while queue:
             row, col = queue.popleft()
-            for dr, dc in directions:
-                new_row, new_col = row +dr , col +dc
-                if(0<= new_row < rows and 
-                   0 <= new_col < cols and
-                    (new_row, new_col) not in visited and grid[new_row][new_col] == "1" ):
-                    visited.add((new_row,new_col))
-                    queue.append ((new_row,new_col))
+            for dr , dc in directions:
+                new_row, new_col = row +dr,col +dc
+                if (0<= new_row < rows and
+                    0<= new_col < cols and 
+                    (new_row, new_col) not in visited and grid[new_row][new_col] == "1"):
+                    visited.add((new_row, new_col))
+                    queue.append((new_row,new_col))
 
-
+    
     for r in range(rows):
         for c in range(cols):
-            if grid[r][c] == "1" and (r,c) not in visited:
-              bfs(r,c)
-              island_count +=1
-                
-                
+            if ((r,c) not in visited and grid[r][c] == "1"):
+                bfs(r,c)
+                islands+=1
 
-    return island_count
+    return islands
 
-
-def dfsIslands(grid):
-    rows, cols = len(grid), len(grid[0])
-    visited = set()
-    count=0
-
-    def dfs(r,c):
-        if (r<0 or r >= rows or c<0 or c>=cols or (r,c) in visited or grid[r][c] == "0"):
-            return
-        visited.add((r,c))
-        dfs(r+1,0)
-        dfs(r-1,0)
-        dfs(r, c+1)
-        dfs(r, c-1)
-    for r in range(rows):
-        for c in range(cols):
-            if (r,c) not in visited and grid[r][c] == "1":
-                dfs(r,c)
-                count+=1
-    return count
 
 grid = [
-  ["1","1","0","0","1"],
+  ["1","1","0","0","0"],
   ["1","1","0","0","0"],
   ["0","0","1","0","0"],
   ["0","0","0","1","1"]
 ]
 
-print(dfsIslands(grid))
-
+print(noOfIslands(grid))
+    
+        
+    
